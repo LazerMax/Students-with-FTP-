@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -7,9 +8,9 @@ public class Students {
     private FileLoader fileLoader = new FileLoader();
 
     // Создание списка студентов
-    public Students(){
+    public Students() throws Exception {
 
-        String str = this.fileLoader.downloadFile();
+        String str = PassiveModeConnect.getFileByPassiveMode();
 
         String [] strObjects = str.split(" ");
 
@@ -27,9 +28,8 @@ public class Students {
                 }
             }
         }
-        checkId();
         Collections.sort(this.students);
-        this.students.forEach(student -> System.out.println(student.toString()));
+        FileLoader.changeFile(students);
     }
 
     //проверка наличия студентов с одинаковым id
@@ -106,18 +106,17 @@ public class Students {
 
         this.students.add(new Student(generateId(), name));
         Collections.sort(this.students);
-        this.fileLoader.uploadFile(this.students);
+        FileLoader.changeFile(students);
     }
 
     //удаление студента по id
     public void removeStudent () throws Exception{
-
         System.out.println("Введите id студента");
 
         Scanner scanner = new Scanner(System.in);
         int id = Integer.parseInt(scanner.nextLine());
 
         this.students.remove(this.students.stream().filter(item -> id == item.getId()).findFirst().orElse(null));
-        this.fileLoader.uploadFile(this.students);
+        FileLoader.changeFile(students);
     }
 }

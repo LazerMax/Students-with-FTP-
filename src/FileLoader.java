@@ -27,53 +27,14 @@ public class FileLoader{
         }
 
 
-        // получение списка студентов из файла на FTP-сервере
-            public String downloadFile(){
-                String line = "";
-                String str = "";
+            // изменение или создание локального файла
+            public static void changeFile(List<Student> students) throws Exception {
 
-                String ftpURL = "ftp://";
-                String host = "192.168.0.40/";
-                String user = "root:";
-                String pass = "aaaaaa@";
-                String filePath = "students.json";
-
-                ftpURL = String.format(ftpURL + user + pass + host + filePath);
-                System.out.println(ftpURL);
-               // getFileURL();
-               // ftpURL = this.fileURL;
-
-                try {
-                    URL url = new URL("ftp://root:aaaaaa@192.168.0.40/students.json");
-                    URLConnection conn = url.openConnection();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    while ((line = bufferedReader.readLine()) != null) {
-                        str += line;
-                    }
-                    bufferedReader.close();
-
-                    str = str.replaceAll("[,{}]", "\n");
-                    str = str.replaceAll("\\s+"," ");
-                    str = str.replaceAll("\"", "");
-
-                } catch (Exception ex) {
-                    throw new Error("Не удалось подключится к FTP-серверу");
-                }
-
-                return str;
-            }
-
-            // изменение файла на FTP-сервере
-            public void uploadFile(List<Student> students) throws Exception {
-               URL url = new URL("ftp://root:aaaaaa@192.168.0.40/students.json");
-                URLConnection conn = url.openConnection();
-                conn.setDoOutput(true);
-
-                OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+            File file = new File("students.json");
+            FileWriter writer = new FileWriter(file);
 
                 students.forEach(student -> {
                     try {
-                        System.out.println(student.toString());
                         writer.write(student.toString());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
