@@ -8,9 +8,9 @@ public class Students {
     private FileLoader fileLoader = new FileLoader();
 
     // Создание списка студентов
-    public Students() throws Exception {
+   /* public Students() throws Exception {
 
-        String str = PassiveModeConnect.getFileByPassiveMode();
+      //  String str = PassiveModeConnect.getFileByPassiveMode();
 
         String [] strObjects = str.split(" ");
 
@@ -30,7 +30,7 @@ public class Students {
         }
         Collections.sort(this.students);
         FileLoader.changeFile(students);
-    }
+    }*/
 
     //проверка наличия студентов с одинаковым id
     public void checkId(){
