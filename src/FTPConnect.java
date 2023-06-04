@@ -141,14 +141,18 @@ public class FTPConnect {
 
     public void sendFileFromFTP(boolean activeMode) throws IOException, InterruptedException {
 
+        PrintWriter writer;
+        File file = new File("Students.json");
+        Scanner scanner = new Scanner(file);
+
         if (activeMode) {
             enterActiveMode();
             deleteFileFromFTP();
             initCommandStore();
+
             Socket accept = serverSocket.accept();
-            PrintWriter writer = new PrintWriter((accept.getOutputStream()), true);
-            File file = new File("Students.json");
-            Scanner scanner = new Scanner(file);
+            writer = new PrintWriter((accept.getOutputStream()), true);
+
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 writer.println(line);
@@ -157,14 +161,16 @@ public class FTPConnect {
             writer.close();
         } else {
             enterPassiveMode();
+
             deleteFileFromFTP();
-            PrintWriter writer = new PrintWriter((dataSocket.getOutputStream()), true);
-            File file = new File("Students.json");
-            Scanner scanner = new Scanner(file);
+
+            writer = new PrintWriter((dataSocket.getOutputStream()), true);
+
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 writer.println(line);
             }
+
             initCommandStore();
             socket.close();
             writer.close();
