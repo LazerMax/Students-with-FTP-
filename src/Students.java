@@ -1,18 +1,21 @@
-import java.io.IOException;
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Students {
 
     private List<Student> students = new ArrayList<>();
-    private FileLoader fileLoader = new FileLoader();
+    private static String studentsJSON;
 
     // Создание списка студентов
-   /* public Students() throws Exception {
+    public void getArrayOfStudents() throws Exception {
 
-      //  String str = PassiveModeConnect.getFileByPassiveMode();
+        studentsJSON = FileLoader.getStudentsJSON();
+        studentsJSON = studentsJSON.replaceAll("[,{}]", "\n");
+        studentsJSON = studentsJSON.replaceAll("\\s+", " ");
+        studentsJSON = studentsJSON.replaceAll("\"", "");
 
-        String [] strObjects = str.split(" ");
+        String [] strObjects = studentsJSON.split(" ");
 
         for (int i = 0; i < strObjects.length; ++i) {
             int id;
@@ -22,25 +25,14 @@ public class Students {
                 for (int j = i + 2; j < strObjects.length; ++j) {
                     if (strObjects[j].contains("name:")) {
                         name = strObjects[j+1];
-                        this.students.add(new Student(id, name));
+                        students.add(new Student(id, name));
                         break;
                     }
                 }
             }
         }
         Collections.sort(this.students);
-        FileLoader.changeFile(students);
-    }*/
-
-    //проверка наличия студентов с одинаковым id
-    public void checkId(){
-        for (int i = 0; i < this.students.size(); i++) {
-            for (int j = i + 1; j < this.students.size(); j++) {
-                if (this.students.get(i).getId() == (this.students.get(j).getId())) {
-                    throw new Error("В списке есть студенты с одинаковым id!");
-                }
-            }
-        }
+        FileLoader.changeFile(this.students);
     }
 
     //получение списка студентов по имени
@@ -59,6 +51,18 @@ public class Students {
             studentsByName.forEach(student -> System.out.println(student.toString()));
         }else{
             System.out.println("Студентов с таким именем не найдено!");
+        }
+    }
+
+
+    //проверка наличия студентов с одинаковым id
+    public void checkId(){
+        for (int i = 0; i < this.students.size(); i++) {
+            for (int j = i + 1; j < this.students.size(); j++) {
+                if (this.students.get(i).getId() == (this.students.get(j).getId())) {
+                    throw new Error("В списке есть студенты с одинаковым id!");
+                }
+            }
         }
     }
 
