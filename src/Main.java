@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Main {
 
-
    private static Scanner scanner = new Scanner(System.in);
    private static String host, userName, password;
    private static boolean activeMode = true;
@@ -12,11 +11,11 @@ public class Main {
     //получение данных для подключения к FTP-серверу от пользователя
     private static void getFTPHostAndPort(){
         System.out.println("Введите ip-адрес FTP-сервера");
-        host = "127.0.0.1";
+        host = scanner.nextLine();
         System.out.println("Введите логин для входа на FTP-сервер:");
-        userName = "root";
+        userName = scanner.nextLine();
         System.out.println("Введите пароль для входа на FTp-сервер");
-        password = "aaaaaa";
+        password = scanner.nextLine();
     }
 
     //выбор режима подключения к FTP-серверу
