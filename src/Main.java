@@ -8,7 +8,6 @@ public class Main {
    private static String host, userName, password;
    private static boolean activeMode = true;
    private static FTPConnect ftpConnect;
-   private static StringBuilder menu = new StringBuilder();
 
     //получение данных для подключения к FTP-серверу от пользователя
     private static void getFTPHostAndPort(){
@@ -23,15 +22,10 @@ public class Main {
     //выбор режима подключения к FTP-серверу
     private static void choiceFTPMode(){
 
-        menu.append(System.lineSeparator())
-                .append("Выберите режим подключения:")
-                .append(System.lineSeparator())
-                .append("1. Активный режим")
-                .append(System.lineSeparator())
-                .append("2. Пассивный режим")
-                .append(System.lineSeparator());
-
-        System.out.println(menu);
+        String startMenu = "\nВыберите режим подключения:\n"+
+                "1. Активный режим\n"+
+                "2. Пассивный режим";
+        System.out.println(startMenu);
 
         int choice = 0;
 
@@ -58,14 +52,11 @@ public class Main {
 
         File file = new File("Students.json");
         int choice = 0;
-
+        String menu = "";
         while (!(file.exists())){
-            menu.append(System.lineSeparator())
-                    .append("Файл Students.json не скачан")
-                    .append(System.lineSeparator())
-                    .append("\nВыберете цифру:")
-                    .append("\n1. Получить файл списка студентов с FTP-сервера")
-                    .append(System.lineSeparator());
+             menu =  "\nФайл Students.json не скачан\n"+
+                     "\nВыберете цифру:\n"+
+                     "1. Получить файл списка студентов с FTP-сервера";
 
             System.out.println(menu);
 
@@ -87,23 +78,14 @@ public class Main {
         }
 
 
-        menu.append(System.lineSeparator())
-                .append("Выберете цифру:")
-                .append(System.lineSeparator())
-                .append("1. Получить файл списка студентов с FTP-сервера")
-                .append(System.lineSeparator())
-                .append("2. Отправить файл списка студентов на FTP-сервер")
-                .append(System.lineSeparator())
-                .append("3. Получить список студентов по имени")
-                .append(System.lineSeparator())
-                .append("4. Получить информацию о студенте по id")
-                .append(System.lineSeparator())
-                .append("5. Добавить студента")
-                .append(System.lineSeparator())
-                .append("6. Удалить студента по id")
-                .append(System.lineSeparator())
-                .append("7. Завершение работы")
-                .append(System.lineSeparator());
+        menu = "\nВыберете цифру:"+
+                "\n1. Получить файл списка студентов с FTP-сервера\n" +
+                "2. Отправить файл списка студентов на FTP-сервер\n" +
+                "3. Получить список студентов по имени\n"+
+                "4. Получить информацию о студенте по id\n"+
+                "5. Добавить студента\n"+
+                "6. Удалить студента по id\n"+
+                "7. Завершение работы\n";
 
         System.out.println(menu);
 
@@ -140,7 +122,6 @@ public class Main {
                 break;
             case 7: return;
         }
-
             choosingAnAction(activeMode);
     }
 

@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,12 +41,12 @@ public class Students {
 
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
-
         List <Student> studentsByName = this.students.stream().filter(item -> name.equals(item.getName()))
                 .collect(Collectors.toList());
 
-        if (studentsByName != null && studentsByName.isEmpty()){
+        if (studentsByName != null){
             Collections.sort(studentsByName);
+            System.out.println();
             studentsByName.forEach(student -> System.out.println(student.toString()));
         }else{
             System.out.println("Студентов с таким именем не найдено!");
@@ -76,6 +75,7 @@ public class Students {
 
         Student student = this.students.stream().filter(item -> id == item.getId()).findFirst().orElse(null);
         if (student != null){
+            System.out.println();
             System.out.println(student);
         } else{
             System.out.println("Студента с таким id не найдено!");

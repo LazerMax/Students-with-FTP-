@@ -1,6 +1,6 @@
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.Socket;import java.net.UnknownHostException;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class FTPConnect {
@@ -73,17 +73,16 @@ public class FTPConnect {
         response = controlReader.readLine();
     }
 
-    private boolean initCommandRETR() throws IOException {
+    private boolean initCommandRETR() throws IOException, InterruptedException {
         controlWriter.println("RETR " + fileName);
         response = controlReader.readLine();
+
+        if (response.startsWith("550")) {
+            return false;
+        }
         response = controlReader.readLine();
         if (!response.startsWith("226")) {
-            if (response.startsWith("550")) {
-                System.out.println("\nФайл на FTP-сервере не найден");
-                return false;
-            } else {
                 throw new IOException("\nFTP server not responding");
-            }
         }
         return true;
     }
@@ -136,7 +135,6 @@ public class FTPConnect {
     private void initCommandStore() throws IOException {
         controlWriter.println("STOR " + fileName);
         response = controlReader.readLine();
-        System.out.println(response);
     }
 
     public void sendFileFromFTP(boolean activeMode) throws IOException, InterruptedException {
